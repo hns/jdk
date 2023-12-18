@@ -353,11 +353,17 @@ public class Head extends Content {
                 String ptrPath = pathToRoot.isEmpty() ? "." : pathToRoot.getPath();
                 mainBodyScript.append("var pathtoroot = ")
                         .appendStringLiteral(ptrPath + "/")
-                        .append(";\n")
-                        .append("loadScripts(document, 'script');");
+                        .append(";");
             }
-            addScriptElement(head, DocPaths.SCRIPT_FILES.resolve(DocPaths.JQUERY_JS));
-            addScriptElement(head, DocPaths.SCRIPT_FILES.resolve(DocPaths.JQUERY_UI_JS));
+            addScriptElement(head, DocPaths.SCRIPT_FILES.resolve(DocPaths.JQUERY_JS), HtmlAttr.DEFER);
+            addScriptElement(head, DocPaths.SCRIPT_FILES.resolve(DocPaths.JQUERY_UI_JS), HtmlAttr.DEFER);
+            addScriptElement(head, DocPaths.SCRIPT_FILES.resolve(DocPaths.SEARCH_JS), HtmlAttr.DEFER);
+
+            addScriptElement(head, DocPaths.MODULE_SEARCH_INDEX_JS, HtmlAttr.ASYNC);
+            addScriptElement(head, DocPaths.PACKAGE_SEARCH_INDEX_JS, HtmlAttr.ASYNC);
+            addScriptElement(head, DocPaths.TYPE_SEARCH_INDEX_JS, HtmlAttr.ASYNC);
+            addScriptElement(head, DocPaths.MEMBER_SEARCH_INDEX_JS, HtmlAttr.ASYNC);
+            addScriptElement(head, DocPaths.TAG_SEARCH_INDEX_JS, HtmlAttr.ASYNC);
         }
         for (DocPath path : additionalScripts) {
             addScriptElement(head, DocPaths.SCRIPT_FILES.resolve(path));
@@ -368,7 +374,14 @@ public class Head extends Content {
     }
 
     private void addScriptElement(HtmlTree head, DocPath filePath) {
+        addScriptElement(head, filePath, null);
+    }
+
+    private void addScriptElement(HtmlTree head, DocPath filePath, HtmlAttr attr) {
         DocPath scriptFile = pathToRoot.resolve(filePath);
-        head.add(HtmlTree.SCRIPT(scriptFile.getPath()));
+        HtmlTree script = HtmlTree.SCRIPT(scriptFile.getPath());
+        if (attr != null)
+            script.put(attr, "");
+        head.add(script);
     }
 }

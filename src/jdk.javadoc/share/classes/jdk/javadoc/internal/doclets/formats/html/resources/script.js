@@ -36,23 +36,6 @@ var sortDesc = "sort-desc";
 var tableTab = "table-tab";
 var activeTableTab = "active-table-tab";
 
-function loadScripts(doc, tag) {
-    createElem(doc, tag, 'script-files/search.js');
-
-    createElem(doc, tag, 'module-search-index.js');
-    createElem(doc, tag, 'package-search-index.js');
-    createElem(doc, tag, 'type-search-index.js');
-    createElem(doc, tag, 'member-search-index.js');
-    createElem(doc, tag, 'tag-search-index.js');
-}
-
-function createElem(doc, tag, path) {
-    var script = doc.createElement(tag);
-    var scriptElement = doc.getElementsByTagName(tag)[0];
-    script.src = pathtoroot + path;
-    scriptElement.parentNode.insertBefore(script, scriptElement);
-}
-
 // Helper for  making content containing release names comparable lexicographically
 function makeComparable(s) {
     return s.toLowerCase().replace(/(\d+)/g,

@@ -26,7 +26,7 @@
  * @bug 8141492 8071982 8141636 8147890 8166175 8168965 8176794 8175218 8147881
  *      8181622 8182263 8074407 8187521 8198522 8182765 8199278 8196201 8196202
  *      8184205 8214468 8222548 8223378 8234746 8241219 8254627 8247994 8263528
- *      8266808 8248863 8305710 8318082
+ *      8266808 8248863 8305710 8318082 8238154
  * @summary Test the search feature of javadoc.
  * @library ../../lib
  * @modules jdk.javadoc/jdk.javadoc.internal.tool
@@ -421,13 +421,12 @@ public class TestSearch extends JavadocTester {
                     <link rel="stylesheet" type="text/css" href="resource-files/jquery-ui.min.css" title="Style">
                     """,
                 """
-                    <script type="text/javascript" src="script-files/jquery-3.6.1.min.js"></script>
+                    <script type="text/javascript" src="script-files/jquery-3.6.1.min.js" defer></script>
                     """,
                 """
-                    <script type="text/javascript" src="script-files/jquery-ui.min.js"></script>""",
+                    <script type="text/javascript" src="script-files/jquery-ui.min.js" defer></script>""",
                 """
-                    var pathtoroot = "./";
-                    loadScripts(document, 'script');""",
+                    var pathtoroot = "./";""",
                 "<div class=\"nav-list-search\">",
                 """
                     <div class="nav-list-search"><a href="search.html">SEARCH</a>

@@ -116,6 +116,7 @@ public class SearchWriter extends HtmlDocletWriter {
                         .setId(HtmlId.of("result-section"))
                         .put(HtmlAttr.STYLE, "display: none;")
                         .add(HtmlTree.SCRIPT(pathToRoot.resolve(DocPaths.SCRIPT_FILES)
-                                                       .resolve(DocPaths.SEARCH_PAGE_JS).getPath())));
+                                                       .resolve(DocPaths.SEARCH_PAGE_JS).getPath())
+                                .put(HtmlAttr.DEFER, "")));
     }
 }
