@@ -517,7 +517,7 @@ ul.horizontal li {
     font-size:0.9em;
 }
 div.inheritance {
-    font-size: var(--nav-font-size);
+    font-size: 0.99em;
 }
 div.inheritance div.inheritance {
     margin-left:2em;
