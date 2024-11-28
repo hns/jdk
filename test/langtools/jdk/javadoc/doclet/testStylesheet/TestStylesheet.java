@@ -121,16 +121,10 @@ public class TestStylesheet extends JavadocTester {
                     }""",
                 // Test the formatting styles for proper content display in use and constant values pages.
                 """
-                    .col-first, .col-second, .col-constructor-name {
-                        vertical-align:top;
-                        overflow: auto;
-                    }""",
-                """
                     .summary-table > div, .details-table > div {
-                        text-align:left;
+                        font-size: 0.93em;
                         padding: 8px 3px 3px 7px;
                         overflow: auto hidden;
-                        scrollbar-width: thin;
                     }""",
                 "@import url('fonts/dejavu.css');",
                 """
@@ -323,9 +317,7 @@ public class TestStylesheet extends JavadocTester {
                 "help-page",
                 "index-redirect-page",
                 "package-declaration-page",
-                "package-tree-page",
                 "single-index-page",
-                "tree-page",
                 // the following names are matched by [class$='...'] in the stylesheet
                 "constructor-details",
                 "constructor-summary",
@@ -341,7 +333,6 @@ public class TestStylesheet extends JavadocTester {
                 "packages",
                 "return-type",
                 // and others...
-                "hierarchy",        // for the hierarchy on a tree page
                 "index"             // on the index page
         );
         Set<String> all = new TreeSet<>(styles);
