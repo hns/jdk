@@ -63,7 +63,7 @@
     --snippet-text-color: var(--block-text-color);
     --snippet-highlight-color: #f7c590;
     /* Border colors for structural elements and user defined tables */
-    --border-color: #ededed;
+    --border-color: #e6e6e6;
     --table-border-color: #000000;
     /* Search input colors */
     --search-input-background-color: #ffffff;
@@ -331,10 +331,13 @@ body.class-declaration-page .details h3,
 ul.block-list li h3 {
     background-color:var(--subnav-background-color);
     border:1px solid var(--border-color);
-    margin:0 0 6px -8px;
+    margin:6px 0;
     padding:7px 5px;
     overflow-x:auto;
     font-size: 1.09em;
+}
+h1 > sup {
+    font-size: small;
 }
 /*
  * Styles for page layout containers.
@@ -1109,13 +1112,19 @@ section.serialized-class-details .detail {
     overflow: auto;
 }
 section[class$="-details"] .detail {
-    padding-left:8px;
     background-color:var(--detail-background-color);
+}
+section[class$="-details"] .detail > div {
+    padding-left: 8px;
 }
 .inherited-list {
     margin:10px 0;
-    padding:0 0 5px 8px;
+    padding-bottom:5px;
     background-color:var(--detail-background-color);
+}
+.inherited-list > code {
+    padding-left: 8px;
+    display: block;
 }
 .vertical-separator {
     padding: 0 5px;
@@ -1185,7 +1194,7 @@ a.anchor-link > img {
 }
 section.detail:target > h3:first-child > a.anchor-link > img,
 section.detail > h3:target > a.anchor-link > img {
-    filter: invert(100%) sepia(4%) saturate(98%) hue-rotate(212deg) brightness(107%) contrast(103%);
+    filter: invert(100%) sepia(4%) saturate(98%) hue-rotate(212deg) brightness(160%) contrast(160%);
 }
 /*
  * Styles for copy-to-clipboard buttons
