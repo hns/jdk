@@ -143,13 +143,16 @@ h6 {
     font-size:0.93em;
 }
 /* Disable font boosting for selected elements */
-h1, h2, h3, h4, h5, h6, div.member-signature {
+h1, h2, h3, h4, h5, h6, div.member-signature, div.member-signature > span {
     max-height: 1000em;
 }
 ul {
     list-style-type:disc;
 }
-code, tt {
+tt {
+    font-family:var(--code-font-family);
+}
+code {
     font-family:var(--code-font-family);
     font-size:var(--code-font-size);
 }
@@ -783,10 +786,10 @@ div.block {
     white-space: pre;
 }
 .member-signature .type-parameters {
-    white-space: normal;
+    white-space: pre;
 }
-:is(h1, h2, h3, h4, h5, h6, sup, sub, small, big) :is(code, tt),
-[style] > :is(code, tt) {
+:is(h1, h2, h3, h4, h5, h6, sup, sub, small, big) code,
+[style*=font-size] code {
     font-size: inherit;
 }
 code {
@@ -1495,6 +1498,12 @@ table.striped > tbody > tr > th {
 @media screen and (max-width: 600px) {
     .nav-list-search > a {
         display: none;
+    }
+    .member-signature {
+        white-space: pre-line;
+    }
+    .member-signature .annotations {
+        white-space: pre-wrap;
     }
     input#search-input {
         width: 18vw;

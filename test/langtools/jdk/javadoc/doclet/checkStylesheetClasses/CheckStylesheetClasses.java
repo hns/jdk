@@ -118,7 +118,7 @@ public class CheckStylesheetClasses {
         htmlStyleNames.removeIf(s -> s.endsWith("-summary") && !styleSheetNames.contains(s));
 
         // signature classes
-        removeAll(htmlStyleNames, "annotations", "element-name", "extends-implements",
+        removeAll(htmlStyleNames, "element-name", "extends-implements",
                 "modifiers", "permits", "return-type");
 
         // misc: these are defined in HtmlStyle, and used by the doclet
