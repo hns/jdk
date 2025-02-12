@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, 2024, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2010, 2025, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
@@ -883,7 +883,7 @@ main, nav, header, footer, section {
 .ui-autocomplete-category {
     font-weight:bold;
     font-size:15px;
-    padding:7px 0 7px 3px;
+    padding:7px 3px;
     background-color:var(--navbar-background-color);
     color:var(--navbar-text-color);
     box-sizing: border-box;
@@ -915,7 +915,7 @@ ul.ui-autocomplete li.ui-static-link {
     padding: 5px 0;
     font-family: var(--body-font-family);
     font-size: 0.93em;
-    font-weight: bolder;
+    font-weight: bold;
     z-index: 10;
 }
 li.ui-static-link a, li.ui-static-link a:visited {
@@ -925,18 +925,23 @@ li.ui-static-link a, li.ui-static-link a:visited {
     margin-right:20px;
 }
 .ui-autocomplete .result-item {
-    font-size: inherit;
+    font-family: var(--body-font-family);
+    font-size: var(--body-font-size);
+    line-height: 1.45;
 }
-.ui-autocomplete .result-highlight {
+.ui-autocomplete .search-result-label {
     font-weight:bold;
 }
-.ui-menu .ui-menu-item-wrapper {
-    padding-top: 0.4em;
-    padding-bottom: 0.4em;
+.ui-autocomplete .search-result-desc {
+    font-size:var(--nav-font-size);
+    display: block;
+    color: #686868;
+}
+.ui-menu .ui-state-active .search-result-desc {
+    color: #383838;
 }
 .ui-menu .ui-menu-item-wrapper {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 3px 6px;
 }
 input[type="text"] {
     background-image:url('glass.png');
@@ -992,14 +997,6 @@ input::placeholder {
     color:var(--search-input-placeholder-color);
     opacity: 1;
 }
-.search-tag-desc-result {
-    font-style:italic;
-    font-size:11px;
-}
-.search-tag-holder-result {
-    font-style:italic;
-    font-size:12px;
-}
 .search-tag-result:target {
     background-color:var(--search-tag-highlight-color);
 }
@@ -1029,9 +1026,6 @@ div#result-container a.search-result-link {
     padding: 0;
     margin: 4px 0;
     width: 100%;
-}
-#result-container .result-highlight {
-    font-weight:bolder;
 }
 .page-search-info {
     background-color: var(--subnav-background-color);
