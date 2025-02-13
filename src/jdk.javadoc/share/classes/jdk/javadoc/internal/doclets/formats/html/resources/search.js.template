@@ -56,7 +56,6 @@ const mdlDescLower = "##REPLACE:doclet.module##";
 const tagDesc = "##REPLACE:doclet.searchTag##";
 const inDesc = "##REPLACE:doclet.in##";
 const desc = "##REPLACE:doclet.Description##";
-const highlight = "<span class='result-highlight'>$&</span>";
 const NO_MATCH = {};
 const MAX_RESULTS = 300;
 const UNICODE_LETTER = 0;
@@ -192,7 +191,7 @@ function createMatcher(term, camelCase) {
 function escapeUnicodeRegex(pattern) {
     return pattern.replace(/[\[\]{}()*+?.\\^$|\s]/g, '\\$&');
 }
-function findMatch(matcher, input, startOfName, endOfName) {
+function findMatch(matcher, input, startOfName, endOfName, prefixLength) {
     var from = startOfName;
     matcher.lastIndex = from;
     var match = matcher.exec(input);
@@ -235,15 +234,21 @@ function findMatch(matcher, input, startOfName, endOfName) {
         prevEnd = start + match[i].length;
         start += match[i].length + match[i + 1].length;
 
-        // lower score for parts of the name that are missing
-        if (match[i + 1] && prevEnd < endOfName) {
+        // lower score for parts that are not matched
+        if (match[i + 1]) {
             score -= rateNoise(match[i + 1]);
         }
     }
-    // lower score if a type name contains unmatched camel-case parts
-    if (input[matchEnd - 1] !== "." && endOfName > matchEnd)
-        score -= rateNoise(input.slice(matchEnd, endOfName));
-    score -= rateNoise(input.slice(0, Math.max(startOfName, match.index)));
+    // lower score for unmatched trailing and leading parts
+    if (input[matchEnd - 1] !== "." && endOfName > matchEnd) {
+        score -= rateNoise(input.substring(matchEnd, endOfName));
+    }
+    if (prefixLength < match.index - 1) {
+        score -= rateNoise(input.substring(prefixLength, match.index - 1)) / 2;
+    }
+    if (prefixLength > 0) {
+        score -= rateNoise(input.substring(0, prefixLength)) / 10;
+    }
 
     if (score <= 0) {
         return NO_MATCH;
@@ -276,9 +281,9 @@ function getCharType(s) {
     }
 }
 function rateNoise(str) {
-    return (str.match(/([.(])/g) || []).length / 5
+    return (str.match(/([.(])/g) || []).length / 10
          + (str.match(/(\p{Lu}+)/gu) || []).length / 10
-         +  str.length / 20;
+         +  Math.ceil(str.length / 10) / 20;
 }
 function doSearch(request, response) {
     var term = request.term.trim();
@@ -335,12 +340,13 @@ function doSearch(request, response) {
             var qualifiedName = prefix + simpleName;
             var useQualified = useQualifiedName(category);
             var input = useQualified ? qualifiedName : simpleName;
-            var startOfName = classPrefix.length + (useQualified ? prefix.length : 0);
+            var prefixLength = useQualified ? prefix.length : 0;
+            var startOfName = classPrefix.length + prefixLength;
             var endOfName = category === "members" && input.indexOf("(", startOfName) > -1
                 ? input.indexOf("(", startOfName) : input.length;
-            var m = findMatch(matcher.plainMatcher, input, startOfName, endOfName);
+            var m = findMatch(matcher.plainMatcher, input, startOfName, endOfName, prefixLength);
             if (m === NO_MATCH && matcher.camelCaseMatcher) {
-                m = findMatch(matcher.camelCaseMatcher, input, startOfName, endOfName);
+                m = findMatch(matcher.camelCaseMatcher, input, startOfName, endOfName, prefixLength);
             }
             if (m !== NO_MATCH) {
                 m.indexItem = item;
