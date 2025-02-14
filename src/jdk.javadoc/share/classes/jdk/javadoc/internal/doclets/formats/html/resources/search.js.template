@@ -191,7 +191,7 @@ function createMatcher(term, camelCase) {
 function escapeUnicodeRegex(pattern) {
     return pattern.replace(/[\[\]{}()*+?.\\^$|\s]/g, '\\$&');
 }
-function findMatch(matcher, input, startOfName, endOfName, prefixLength) {
+function findMatch(matcher, input, startOfName, endOfName) {
     var from = startOfName;
     matcher.lastIndex = from;
     var match = matcher.exec(input);
@@ -240,14 +240,14 @@ function findMatch(matcher, input, startOfName, endOfName, prefixLength) {
         }
     }
     // lower score for unmatched trailing and leading parts
-    if (input[matchEnd - 1] !== "." && endOfName > matchEnd) {
-        score -= rateNoise(input.substring(matchEnd, endOfName));
+    if (endOfName > matchEnd) {
+        score -= rateNoise(input.substring(matchEnd, endOfName)) * 0.5;
     }
-    if (prefixLength < match.index - 1) {
-        score -= rateNoise(input.substring(prefixLength, match.index - 1)) / 2;
+    if (startOfName < match.index) {
+        score -= rateNoise(input.substring(startOfName, match.index));
     }
-    if (prefixLength > 0) {
-        score -= rateNoise(input.substring(0, prefixLength)) / 10;
+    if (startOfName > 0) {
+        score -= rateNoise(input.substring(0, startOfName)) * 0.05;
     }
 
     if (score <= 0) {
@@ -281,7 +281,7 @@ function getCharType(s) {
     }
 }
 function rateNoise(str) {
-    return (str.match(/([.(])/g) || []).length / 10
+    return (str.match(/([(])/g) || []).length / 5
          + (str.match(/(\p{Lu}+)/gu) || []).length / 10
          +  Math.ceil(str.length / 10) / 20;
 }
@@ -344,9 +344,9 @@ function doSearch(request, response) {
             var startOfName = classPrefix.length + prefixLength;
             var endOfName = category === "members" && input.indexOf("(", startOfName) > -1
                 ? input.indexOf("(", startOfName) : input.length;
-            var m = findMatch(matcher.plainMatcher, input, startOfName, endOfName, prefixLength);
+            var m = findMatch(matcher.plainMatcher, input, startOfName, endOfName);
             if (m === NO_MATCH && matcher.camelCaseMatcher) {
-                m = findMatch(matcher.camelCaseMatcher, input, startOfName, endOfName, prefixLength);
+                m = findMatch(matcher.camelCaseMatcher, input, startOfName, endOfName);
             }
             if (m !== NO_MATCH) {
                 m.indexItem = item;
