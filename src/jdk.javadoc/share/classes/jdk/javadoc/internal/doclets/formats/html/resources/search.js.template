@@ -305,7 +305,7 @@ function getCharType(s) {
 function rateNoise(str) {
     return (str.match(/([(])/g) || []).length / 5
          + (str.match(/(\p{Lu}+)/gu) || []).length / 10
-         +  Math.ceil(str.length / 10) / 20;
+         +  Math.ceil(str.length / 10) / 10;
 }
 function doSearch(request, response) {
     var term = request.term.trim();
