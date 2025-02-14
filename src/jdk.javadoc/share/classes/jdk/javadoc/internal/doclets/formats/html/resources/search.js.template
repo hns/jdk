@@ -462,8 +462,14 @@ $.widget("custom.catcomplete", $.ui.autocomplete, {
     },
     _resizeMenu: function () {
         var ul = this.menu.element;
+        var missing = 0;
+        ul.children().each((i, e) => {
+            if (e.firstChild && e.firstChild.firstChild) {
+                missing = Math.max(missing, e.firstChild.firstChild.scrollWidth - e.firstChild.firstChild.clientWidth);
+            }
+        });
         ul.outerWidth( Math.max(
-            ul.width("").outerWidth() + 100,
+            ul.width("").outerWidth() + missing + 40,
             this.element.outerWidth()
         ));
     }

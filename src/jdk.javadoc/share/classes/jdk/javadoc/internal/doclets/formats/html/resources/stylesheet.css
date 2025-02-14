@@ -890,7 +890,7 @@ main, nav, header, footer, section {
 }
 .ui-autocomplete {
     max-height:85%;
-    max-width:65%;
+    max-width:70%;
     overflow:auto;
     white-space:nowrap;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
@@ -932,7 +932,7 @@ li.ui-static-link a, li.ui-static-link a:visited {
 }
 .ui-autocomplete {
     display: grid;
-    grid-template-columns: minmax(220px, auto) minmax(220px, auto);
+    grid-template-columns: auto auto;
 }
 .ui-autocomplete > li,
 .ui-autocomplete > li > div {
