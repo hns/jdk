@@ -73,7 +73,7 @@ $(window).on("load", function() {
         }
         if (!activeTab || r[activeTab].length === 0 || !fixedTab) {
             Object.keys(r).reduce(function(prev, curr) {
-                if (r[curr].length > 0 && r[curr][0].score > prev) {
+                if (r[curr].length > 0 && r[curr][0].score - prev > 0.1) {
                     activeTab = curr;
                     return r[curr][0].score;
                 }
@@ -171,7 +171,7 @@ $(window).on("load", function() {
             .addClass("search-result-link")
             .html(label);
         var desc = getResultDescription(item, true);
-        $("<div/>").html(link).addClass("col-first").addClass(rowColor).appendTo(table);
+        $("<div/>").html(link).addClass("col-plain").addClass(rowColor).appendTo(table);
         $("<div/>").html(desc).addClass("col-last").addClass(rowColor).appendTo(table);
     }
     var timeout;
