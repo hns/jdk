@@ -183,7 +183,7 @@ function createMatcher(term, camelCase) {
             }
         }
     });
-    var re = new RegExp(pattern, "gui");
+    var re = new RegExp(pattern, camelCase ? "gu" : "gui");
     re.upperCase = upperCase;
     return re;
 }
