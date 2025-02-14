@@ -954,6 +954,7 @@ li.ui-static-link a, li.ui-static-link a:visited {
 }
 .ui-autocomplete .search-result-desc {
     font-size: var(--nav-font-size);
+    color: #404040;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -1472,7 +1473,6 @@ table.striped > tbody > tr > th {
     }
     .ui-autocomplete .search-result-desc {
         display: block;
-        color: #686868;
     }
 }
 @media screen and (max-width: 800px) {
