@@ -266,10 +266,9 @@ function findMatch(matcher, input, startOfName, endOfName, prefixLength) {
     if (startOfName < match.index) {
         score -= rateDistance(input.substring(startOfName, match.index));
     }
-    // Lower score for unmatched trailing part of name, but favor member listings
-    if (matchEnd < endOfName) {
-        var factor = startOfName > prefixLength && match.index < startOfName ? 0.01 : 0.8;
-        score -= rateDistance(input.substring(matchEnd, endOfName)) * factor;
+    // Lower score for unmatched trailing part of name, but exclude member listings
+    if (matchEnd < endOfName && (startOfName === prefixLength || match.index >= startOfName)) {
+        score -= rateDistance(input.substring(matchEnd, endOfName)) * 0.8;
     }
     // Rank non-constructor members by (unmatched) class name
     if (prefixLength < Math.min(startOfName, match.index)) {
