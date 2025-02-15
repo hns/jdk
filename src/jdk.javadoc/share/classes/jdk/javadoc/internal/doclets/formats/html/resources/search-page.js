@@ -154,7 +154,7 @@ $(window).on("load", function() {
         } else if (category === "searchTags") {
             col1 = tagDesc;
         }
-        col2 = desc;
+        col2 = descDesc;
         $("<div class='table-header col-first'>" + col1 + "</div>").appendTo(table);
         $("<div class='table-header col-last'>" + col2 + "</div>").appendTo(table);
         $.each(items, function(index, item) {
