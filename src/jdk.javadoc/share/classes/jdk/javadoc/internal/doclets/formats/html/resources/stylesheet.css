@@ -627,7 +627,7 @@ ul.preview-feature-list {
 }
 .inherited-list h3 {
     background-color: var(--subnav-background-color);
-    padding:6px 12px 7px 12px;
+    padding:6px 5px 8px 12px;
     height:17px;
     width: fit-content;
     max-width: 93%;
@@ -644,7 +644,13 @@ ul.preview-feature-list {
 .caption a:visited,
 .inherited-list.expanded h3 a:link,
 .inherited-list.expanded h3 a:visited {
-    color:var(--subnav-link-color);
+    color: var(--subnav-link-color);
+}
+.caption a:hover,
+.caption a:active,
+.inherited-list.expanded h3 a:hover,
+.inherited-list.expanded h3 a:active {
+    color: var(--link-color-active);
 }
 div.table-tabs {
     padding: 8px 0 0 1px;
@@ -734,7 +740,7 @@ div.checkboxes > label > input {
 .summary-table > div, .details-table > div {
     font-size: var(--nav-font-size);
     line-height: 1.6;
-    padding: 8px 3px 3px 7px;
+    padding: 8px 5px 3px 7px;
     overflow: auto hidden;
 }
 .summary-table > div.table-header, .details-table > div.table-header {
@@ -1147,12 +1153,41 @@ section[class$="-details"] .detail > div {
     margin: 20px 0;
     background-color:var(--detail-background-color);
 }
+.inherited-list h3 > button {
+    cursor: pointer;
+    color: var(--subnav-link-color);
+    position: relative;
+    background-color: transparent;
+    border:none;
+    width: 1.6em;
+    height: 1.6em;
+    vertical-align: middle;
+    top: -2px;
+}
+.inherited-list h3:has(button) {
+    padding-left: 2px;
+}
+.inherited-list h3 > button::before {
+    content: "\25B8";
+}
+.inherited-list.expanded h3 > button::before {
+    content: "\25BE";
+}
 .inherited-list > code {
     padding: 8px;
     display: block;
     background-color: var(--code-background-color);
     border-radius: 0;
     line-height: var(--code-line-height);
+}
+.inherited-list > div {
+    display: none;
+}
+.inherited-list.expanded > code {
+    display: none;
+}
+.inherited-list.expanded > div {
+    display: grid;
 }
 .vertical-separator {
     padding: 0 5px;
