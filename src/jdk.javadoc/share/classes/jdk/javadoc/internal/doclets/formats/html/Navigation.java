@@ -546,7 +546,6 @@ public class Navigation {
                                 .add(HtmlTree.INPUT(HtmlAttr.InputType.RADIO, HtmlIds.THEME_OS)
                                         .put(HtmlAttr.NAME, "theme").put(HtmlAttr.VALUE, HtmlIds.THEME_OS.name()))
                                 .add(HtmlTree.SPAN(contents.getContent("doclet.theme.system")))))
-                .add(HtmlTree.DIV(HtmlStyles.panelHeading, contents.getContent("doclet.theme.settings")))
                 .add(HtmlTree.DIV(HtmlTree.LABEL(HtmlId.of("underline-links").name(),
                                         HtmlTree.INPUT(HtmlAttr.InputType.CHECKBOX, HtmlId.of("underline-links"))
                                                 .put(HtmlAttr.ONCLICK, ""))

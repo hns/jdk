@@ -403,9 +403,10 @@ button#theme-panel-close-button:focus-visible {
 }
 div#theme-panel div.panel-heading {
     font-weight: bold;
+    font-size: 16px;
 }
 div#theme-panel div {
-    padding: 8px;
+    padding: 10px 8px;
 }
 div#theme-panel label {
     margin-right: 8px;
