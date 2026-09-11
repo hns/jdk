@@ -59,7 +59,6 @@ public:
   bool contains(ShenandoahHeapRegion* region) const override;
   bool contains(oop obj) const override;
 
-  void reserve_task_queues(uint workers) override;
   void set_old_gen_task_queues(ShenandoahObjToScanQueueSet* old_gen_queues) {
     _old_gen_task_queues = old_gen_queues;
   }
@@ -69,7 +68,7 @@ public:
 
   // Returns true if the young generation is configured to enqueue old
   // oops for the old generation mark queues.
-  bool is_bootstrap_cycle() const {
+  bool is_old_marking_active() const {
     return _old_gen_task_queues != nullptr;
   }
 
