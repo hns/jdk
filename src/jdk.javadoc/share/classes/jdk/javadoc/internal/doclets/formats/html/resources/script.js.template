@@ -424,17 +424,16 @@ document.addEventListener("DOMContentLoaded", function(e) {
             input.checked = true;
         } else if (input.id === UNDERLINE_LINKS) {
             input.checked = (underlineLinks === "on" || (!underlineLinks && currentTheme === THEME_DARK));
+            input.addEventListener("change", e => {
+                underlineLinks = e.target.checked ? "on" : "off";
+                localStorage.setItem(UNDERLINE_LINKS, underlineLinks);
+                setTheme([currentTheme, underlineLinks]);
+            });
         }
         if (input.name === "theme") {
             input.addEventListener("change", e => {
                 currentTheme = e.target.value;
                 localStorage.setItem(THEME, e.target.value);
-                setTheme([currentTheme, underlineLinks]);
-            });
-        } else if (input.id === UNDERLINE_LINKS) {
-            input.addEventListener("change", e => {
-                underlineLinks = e.target.checked ? "on" : "off";
-                localStorage.setItem(UNDERLINE_LINKS, underlineLinks);
                 setTheme([currentTheme, underlineLinks]);
             });
         }
